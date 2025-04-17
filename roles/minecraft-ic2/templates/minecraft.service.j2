@@ -6,7 +6,7 @@ After=network.target
 User={{ minecraft_user }}
 Group={{ minecraft_group }}
 WorkingDirectory={{ minecraft_home }}
-ExecStart=/usr/bin/java {{ jvm_flags }} -Xmx{{ memory_max }} -Xms{{ memory_min }} -jar forge-{{ minecraft_version }}-universal.jar nogui
+ExecStart=/usr/bin/java {{ jvm_flags | join(' ') }} -Xmx{{ memory_max }} -Xms{{ memory_min }} -jar forge-{{ minecraft_version }}-{{ forge_version }}.jar nogui
 Restart=on-failure
 SuccessExitStatus=0 1
 

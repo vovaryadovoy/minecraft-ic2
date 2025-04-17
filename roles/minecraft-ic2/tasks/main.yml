@@ -39,12 +39,10 @@
     group: "{{ minecraft_group }}"
 
 - name: Run Forge installer
-  become_user: "{{ minecraft_user }}"
-  shell: >
-    java -jar forge-installer.jar --installServer
+  command: java -jar forge-installer.jar --installServer
   args:
     chdir: "{{ minecraft_home }}"
-  creates: "{{ minecraft_home }}/forge-{{ minecraft_version }}-universal.jar"
+    creates: "{{ minecraft_home }}/forge-1.12.2-{{ forge_version }}-universal.jar"
 
 - name: Accept EULA
   template:
@@ -54,14 +52,23 @@
     group: "{{ minecraft_group }}"
     mode: '0644'
 
-- name: Download mods
-  get_url:
-    url: "{{ item.url }}"
-    dest: "{{ minecraft_home }}/{{ item.dest }}"
-    mode: '0644'
+- name: Deploy server.properties
+  template:
+    src: server.properties.j2
+    dest: "{{ minecraft_home }}/server.properties"
     owner: "{{ minecraft_user }}"
     group: "{{ minecraft_group }}"
+    mode: '0644'
+
+- name: Copy mods from local files
+  copy:
+    src: "{{ item.file }}"
+    dest: "{{ minecraft_home }}/mods/{{ item.file }}"
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_group }}"
+    mode: '0644'
   loop: "{{ mods }}"
+  when: item.file is defined
 
 - name: Deploy systemd service
   template:

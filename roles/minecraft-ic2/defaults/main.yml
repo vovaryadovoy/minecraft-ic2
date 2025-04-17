@@ -3,33 +3,30 @@ forge_version: "14.23.5.2859"
 minecraft_user: minecraft
 minecraft_group: minecraft
 minecraft_home: /opt/minecraft
-java_package: openjdk-17-jdk
+java_package: openjdk-8-jdk
 memory_min: "512M"
-memory_max: "1536M"
-jvm_flags: >
-  -XX:+UseG1GC
-  -XX:+ParallelRefProcEnabled
-  -XX:MaxGCPauseMillis=100
-  -XX:+UnlockExperimentalVMOptions
-  -XX:+DisableExplicitGC
-  -XX:+AlwaysPreTouch
-  -XX:G1NewSizePercent=20
-  -XX:G1MaxNewSizePercent=60
-  -XX:G1HeapRegionSize=32M
-  -XX:G1ReservePercent=15
-  -XX:G1HeapWastePercent=5
-  -XX:G1MixedGCCountTarget=4
-  -XX:InitiatingHeapOccupancyPercent=30
-  -XX:SurvivorRatio=32
-  -XX:+PerfDisableSharedMem
-  -XX:MaxTenuringThreshold=1
+memory_max: "1024M"
+jvm_flags:
+  - "-XX:+UseG1GC"
+  - "-XX:+ParallelRefProcEnabled"
+  - "-XX:+UnlockExperimentalVMOptions"
+  - "-XX:+DisableExplicitGC"
+  - "-XX:+AlwaysPreTouch"
+  - "-XX:G1NewSizePercent=25"
+  - "-XX:G1MaxNewSizePercent=60"
+  - "-XX:G1HeapRegionSize=8M"
+  - "-XX:G1ReservePercent=10"
+  - "-XX:G1HeapWastePercent=10"
+  - "-XX:G1MixedGCCountTarget=4"
+  - "-XX:InitiatingHeapOccupancyPercent=20"
+  - "-XX:MaxTenuringThreshold=5"
+  - "-XX:+PerfDisableSharedMem"
 
 forge_installer_url: "https://maven.minecraftforge.net/net/minecraftforge/forge/{{ minecraft_version }}-{{ forge_version }}/forge-{{ minecraft_version }}-{{ forge_version }}-installer.jar"
 
 mods:
   - name: industrialcraft
-    url: "https://mediafilez.forgecdn.net/files/3039/462/industrialcraft-2-2.8.170-ex112.jar"
-    dest: "mods/industrialcraft-2-2.8.170-ex112.jar"
+    file: industrialcraft-2-2.8.176-ex112.jar
 
 log_retention_days: 7
 log_cleanup_time: "03:00"

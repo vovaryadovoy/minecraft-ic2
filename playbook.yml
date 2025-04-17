@@ -1,5 +1,6 @@
 - name: Install and configure Minecraft IndustrialCraft server
   hosts: minecraft
+  user: root
   become: yes
   roles:
     - minecraft-ic2
