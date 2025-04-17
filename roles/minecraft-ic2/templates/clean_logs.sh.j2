@@ -1,0 +1,2 @@
+#!/bin/bash
+find {{ minecraft_home }}/logs -type f -name "*.log*" -mtime +{{ log_retention_days }} -delete

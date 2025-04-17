@@ -1,0 +1,34 @@
+- name: Create scripts directory
+  file:
+    path: "{{ minecraft_home }}/scripts"
+    state: directory
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_group }}"
+    mode: '0755'
+
+- name: Deploy log cleanup script
+  template:
+    src: clean_logs.sh.j2
+    dest: "{{ minecraft_home }}/scripts/clean_logs.sh"
+    owner: "{{ minecraft_user }}"
+    group: "{{ minecraft_group }}"
+    mode: '0755'
+
+- name: Install log cleanup systemd service
+  template:
+    src: clean_logs.service.j2
+    dest: /etc/systemd/system/clean_minecraft_logs.service
+    mode: '0644'
+
+- name: Install log cleanup systemd timer
+  template:
+    src: clean_logs.timer.j2
+    dest: /etc/systemd/system/clean_minecraft_logs.timer
+    mode: '0644'
+
+- name: Enable and start cleanup timer
+  systemd:
+    name: clean_minecraft_logs.timer
+    enabled: true
+    state: started
+    daemon_reload: yes

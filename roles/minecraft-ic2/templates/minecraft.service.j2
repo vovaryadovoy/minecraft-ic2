@@ -1,0 +1,14 @@
+[Unit]
+Description=Minecraft Server with IndustrialCraft
+After=network.target
+
+[Service]
+User={{ minecraft_user }}
+Group={{ minecraft_group }}
+WorkingDirectory={{ minecraft_home }}
+ExecStart=/usr/bin/java {{ jvm_flags }} -Xmx{{ memory_max }} -Xms{{ memory_min }} -jar forge-{{ minecraft_version }}-universal.jar nogui
+Restart=on-failure
+SuccessExitStatus=0 1
+
+[Install]
+WantedBy=multi-user.target

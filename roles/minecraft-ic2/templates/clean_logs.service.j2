@@ -1,0 +1,6 @@
+[Unit]
+Description=Clean old Minecraft logs
+
+[Service]
+Type=oneshot
+ExecStart={{ minecraft_home }}/scripts/clean_logs.sh

@@ -1,0 +1,9 @@
+[Unit]
+Description=Run Minecraft log cleanup daily
+
+[Timer]
+OnCalendar=*-*-* {{ log_cleanup_time }}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
